@@ -3,10 +3,10 @@ const mongoosePaginate = require("mongoose-paginate-v2");
 
 const orderSchema = new mongoose.Schema(
   {
-    // customer: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "users",
-    // },
+    customer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
     productId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "products",
