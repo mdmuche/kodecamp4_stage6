@@ -11,7 +11,19 @@ router.post("/order", async (req, res, next) => {
   try {
     const { products } = req.body;
 
-    await orderCollection.create(products);
+    const user = await orderCollection.find({
+      customer: req.userDetails.userId,
+    });
+
+    if (!user) {
+      res.status(403).send({ message: "not a valid user" });
+      return;
+    }
+
+    await orderCollection.create({
+      customer: req.userDetails.userId,
+      products,
+    });
 
     res.status(201).send({ message: "order created" });
   } catch (err) {
@@ -25,8 +37,14 @@ router.post("/order", async (req, res, next) => {
 router.get("/orders", async (req, res, next) => {
   try {
     const orders = await orderCollection
-      .find({}, "productId quantity totalCost")
-      .populate("productId", "prodName prodPrice prodSnippet prodDetails");
+      .find(
+        { customer: req.userDetails.userId },
+        "products.productId products.quantity products.totalCost"
+      )
+      .populate(
+        "products.productId",
+        "prodName prodPrice prodSnippet prodDetails"
+      );
 
     if (orders.length == 0) {
       res.status(404).send({ message: "no orders found" });
