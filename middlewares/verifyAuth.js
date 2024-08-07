@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const verifyAuth = async (req, res, next) => {
+const verifyAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     res.status(401).send("no authorization header");
