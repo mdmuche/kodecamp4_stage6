@@ -11,18 +11,24 @@ router.post("/order", async (req, res, next) => {
   try {
     const { products } = req.body;
 
-    const user = await orderCollection.find({
-      customer: req.userDetails.userId,
-    });
-
-    if (!user) {
-      res.status(403).send({ message: "not a valid user" });
+    if (
+      products.some(
+        (product) =>
+          !product.productId || !product.quantity || !product.totalCost
+      )
+    ) {
+      res.status(400).send({
+        message: "input field required",
+      });
       return;
     }
+
+    const totalAmount = products.reduce((acc, item) => acc + item.totalCost, 0);
 
     await orderCollection.create({
       customer: req.userDetails.userId,
       products,
+      totalAmount,
     });
 
     res.status(201).send({ message: "order created" });
@@ -39,7 +45,7 @@ router.get("/orders", async (req, res, next) => {
     const orders = await orderCollection
       .find(
         { customer: req.userDetails.userId },
-        "products.productId products.quantity products.totalCost"
+        "products.productId products.quantity products.totalCost totalAmount"
       )
       .populate(
         "products.productId",
