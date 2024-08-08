@@ -47,7 +47,7 @@ Request body
 Content-Type: application/json
 
 {
-   <red> "fullName": "john doe",</red>
+    "fullName": "john doe",
     "email": "johndoe@gmail.com",
     "password": "your_password"
 }
