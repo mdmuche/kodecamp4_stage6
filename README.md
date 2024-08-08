@@ -12,10 +12,10 @@ This is a project to authenticate two kinds of users **admin** and **customer** 
 ## Installation
 
 - Clone repository
-  `git clone https://github.com/mdmuche/kodecamp_stage6.git`
+  `git clone https://github.com/mdmuche/kodecamp4_stage6.git`
 
 - Change directory
-  `cd kodecamp_stage6`
+  `cd kodecamp4_stage6`
 
 - Install dependency
   `npm install`
@@ -44,11 +44,10 @@ Creates a user for both admin and customers with paths: fullName, email and pass
 Request body
 
 ```
-POST  http://localhost:3000/v1/auth/register
 Content-Type: application/json
 
 {
-    "fullName": "john doe",
+   <red> "fullName": "john doe",</red>
     "email": "johndoe@gmail.com",
     "password": "your_password"
 }
@@ -59,7 +58,6 @@ Login a user for both admin and customers with paths: email and password
 Request body
 ```
 
-POST http://localhost:3000/v1/auth/login
 Content-Type: application/json
 
 {
@@ -72,10 +70,9 @@ Content-Type: application/json
 POST /v1/admins
 Create product with paths: prodName, prodPrice, prodSnippet, prodDetails
 
-Request body
+Request body with header
 
 ```
-POST  http://localhost:3000/v1/admins
 Content-Type: application/json
 Authorization: Bearer your_jwt_token
 
@@ -90,10 +87,9 @@ Authorization: Bearer your_jwt_token
 PATCH /v1/admins/${id}
 Edit product with paths: prodName, prodPrice, prodSnippet, prodDetails where id is your ObjectId(\_id)
 
-Request body
+Request body and header
 
 ```
-PATCH http://localhost:3000/v1/admins/${id}
 Content-Type: application/json
 Authorization: Bearer your_jwt_token
 
@@ -108,10 +104,9 @@ Authorization: Bearer your_jwt_token
 DELETE /v1/admins/${id}
 Create product with paths: prodName, prodPrice, prodSnippet, prodDetails
 
-Request body
+Request header
 
 ```
-DELETE http://localhost:3000/v1/admins/${id}
 Authorization: Bearer your_jwt_token
 ```
 
@@ -120,30 +115,27 @@ Authorization: Bearer your_jwt_token
 GET /v1/product/${page}/${limit}
 View products with pagination where ${page} && ${limit} must be a Number
 
-Request body
+Request header
 
 ```
-GET http://localhost:3000/v1/product/${page}/${limit}
 Authorization: Bearer your_jwt_token
 ```
 
 GET /v1/product/${id}
 view a single product with an ObjectId(\_id)
 
-Request body
+Request header
 
 ```
-GET http://localhost:3000/v1/product/${id}
 Authorization: Bearer your_jwt_here
 ```
 
 POST /v1/customers/order
 Create an order order items(products) containing paths: productId, quantity, and totalCost
 
-Request body
+Request body and header
 
 ```
-POST http://localhost:3000/v1/customers/order
 Content-Type: application/json
 Authorization: Bearer your_jwt_here
 
@@ -166,9 +158,8 @@ Authorization: Bearer your_jwt_here
 GET /v1/customers/orders
 Get all your orders
 
-Request body
+Request header
 
 ```
-GET http://localhost:3000/v1/customers/orders
 Authorization: Bearer your_jwt_token
 ```
