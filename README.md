@@ -26,7 +26,7 @@ This is a project to authenticate two kinds of users **admin** and **customer** 
 - Setup .env config files
 
   ```
-   PORT=3000
+   PORT=your_port_here
 
    URL=url_mongodb_url_here
 
@@ -36,7 +36,7 @@ This is a project to authenticate two kinds of users **admin** and **customer** 
 - Start your application
   `npm start`
 
-## Register and Login Routes
+## Register, Login, Forgot-password, Reset-password Routes
 
 POST /v1/auth/register
 Creates a user for both admin and customers with paths: fullName, email and password
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 {
     "fullName": "john doe",
-    "email": "johndoe@gmail.com",
+    "email": "johndoe@example.com",
     "password": "your_password"
 }
 
@@ -61,9 +61,42 @@ Request body
 Content-Type: application/json
 
 {
-"email": "johndoe@gmail.com",
+"email": "johndoe@example.com",
 "password": "your_password"
 }
+
+POST /v1/auth/forgot-password
+Forgot password route with path: email
+
+Request body
+
+```
+
+Content-Type: application/json
+
+{
+    "email": "johndoe@example.com"
+}
+
+
+```
+
+POST /v1/auth/reset-password
+Reset password route with path: token and newPassword
+
+Request body
+
+```
+
+Content-Type: application/json
+
+{
+    "token": your_generated_uuid,
+    "newPassword": "your_new_password"
+}
+
+
+```
 
 ## Admin Routes
 
@@ -73,15 +106,17 @@ Create product with paths: prodName, prodPrice, prodSnippet, prodDetails
 Request body with header
 
 ```
+
 Content-Type: application/json
 Authorization: Bearer your_jwt_token
 
 {
-    "prodName": "prodName_here",
-      "prodPrice": Number(prodPrice),
-      "prodSnippet": "prodSnippet_here",
-      "prodDetails": "prodDetails_here"
+"prodName": "prodName_here",
+"prodPrice": Number(prodPrice),
+"prodSnippet": "prodSnippet_here",
+"prodDetails": "prodDetails_here"
 }
+
 ```
 
 PATCH /v1/admins/${id}
@@ -90,6 +125,7 @@ Edit product with paths: prodName, prodPrice, prodSnippet, prodDetails where id 
 Request body and header
 
 ```
+
 Content-Type: application/json
 Authorization: Bearer your_jwt_token
 
@@ -99,15 +135,18 @@ Authorization: Bearer your_jwt_token
 "prodSnippet": "prod_snippet_updated_here",
 "prodDetails": "prod_details_updated_here"
 }
+
 ```
 
 DELETE /v1/admins/${id}
-Create product with paths: prodName, prodPrice, prodSnippet, prodDetails
+Delete a product by id
 
 Request header
 
 ```
+
 Authorization: Bearer your_jwt_token
+
 ```
 
 ## Customer Routes
@@ -118,7 +157,9 @@ View products with pagination where ${page} && ${limit} must be a Number
 Request header
 
 ```
+
 Authorization: Bearer your_jwt_token
+
 ```
 
 GET /v1/product/${id}
@@ -127,7 +168,9 @@ view a single product with an ObjectId(\_id)
 Request header
 
 ```
+
 Authorization: Bearer your_jwt_here
+
 ```
 
 POST /v1/customers/order
@@ -136,23 +179,25 @@ Create an order order items(products) containing paths: productId, quantity, and
 Request body and header
 
 ```
+
 Content-Type: application/json
 Authorization: Bearer your_jwt_here
 
 {
-    "products": [
-        {
-        "productId": productOrderedOneId,
-        "quantity": 5,
-        "totalCost": 2500
-        },
-        {
-        "productId": productOrderedTwoId,
-        "quantity": 2,
-        "totalCost": 2000
-        }
-    ]
+"products": [
+{
+"productId": productOrderedOneId,
+"quantity": 5,
+"totalCost": 2500
+},
+{
+"productId": productOrderedTwoId,
+"quantity": 2,
+"totalCost": 2000
 }
+]
+}
+
 ```
 
 GET /v1/customers/orders
@@ -161,7 +206,9 @@ Get all your orders
 Request header
 
 ```
+
 Authorization: Bearer your_jwt_token
+
 ```
 
 ## Testing
@@ -173,3 +220,7 @@ Admin Tests
 
 Customer Test
 `npm run customerTest`
+
+```
+
+```

@@ -16,7 +16,6 @@ afterAll(async () => {
 });
 
 let adminToken = "";
-let productOneId = "";
 let productTwoId = "";
 
 describe("Testing admin routes", () => {
