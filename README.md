@@ -38,12 +38,16 @@ This is a project to authenticate two kinds of users **admin** and **customer** 
 
 ## Register, Login, Forgot-password, Reset-password Routes
 
-POST /v1/auth/register
+### Register
+
+### POST /v1/auth/register
+
 Creates a user for both admin and customers with paths: fullName, email and password
 
 Request body
 
 ```
+
 Content-Type: application/json
 
 {
@@ -52,10 +56,16 @@ Content-Type: application/json
     "password": "your_password"
 }
 
-POST /v1/auth/login
+```
+
+### Login
+
+### POST /v1/auth/login
+
 Login a user for both admin and customers with paths: email and password
 
 Request body
+
 ```
 
 Content-Type: application/json
@@ -65,7 +75,12 @@ Content-Type: application/json
 "password": "your_password"
 }
 
-POST /v1/auth/forgot-password
+```
+
+### Forgot-password
+
+### POST /v1/auth/forgot-password
+
 Forgot password route with path: email
 
 Request body
@@ -81,7 +96,10 @@ Content-Type: application/json
 
 ```
 
-POST /v1/auth/reset-password
+### Reset-password
+
+### POST /v1/auth/reset-password
+
 Reset password route with path: token and newPassword
 
 Request body
@@ -100,7 +118,10 @@ Content-Type: application/json
 
 ## Admin Routes
 
-POST /v1/admins
+### Create_product
+
+### POST /v1/admins
+
 Create product with paths: prodName, prodPrice, prodSnippet, prodDetails
 
 Request body with header
@@ -119,7 +140,10 @@ Authorization: Bearer your_jwt_token
 
 ```
 
-PATCH /v1/admins/${id}
+### Edit Product
+
+### PATCH /v1/admins/${id}
+
 Edit product with paths: prodName, prodPrice, prodSnippet, prodDetails where id is your ObjectId(\_id)
 
 Request body and header
@@ -138,7 +162,10 @@ Authorization: Bearer your_jwt_token
 
 ```
 
-DELETE /v1/admins/${id}
+### Delete Product
+
+### DELETE /v1/admins/${id}
+
 Delete a product by id
 
 Request header
@@ -151,7 +178,10 @@ Authorization: Bearer your_jwt_token
 
 ## Customer Routes
 
-GET /v1/product/${page}/${limit}
+### View all product
+
+### GET /v1/product/${page}/${limit}
+
 View products with pagination where ${page} && ${limit} must be a Number
 
 Request header
@@ -162,7 +192,10 @@ Authorization: Bearer your_jwt_token
 
 ```
 
-GET /v1/product/${id}
+### View single product by id
+
+### GET /v1/product/${id}
+
 view a single product with an ObjectId(\_id)
 
 Request header
@@ -173,7 +206,10 @@ Authorization: Bearer your_jwt_here
 
 ```
 
-POST /v1/customers/order
+### Create order
+
+### POST /v1/customers/order
+
 Create an order order items(products) containing paths: productId, quantity, and totalCost
 
 Request body and header
@@ -200,7 +236,10 @@ Authorization: Bearer your_jwt_here
 
 ```
 
-GET /v1/customers/orders
+### Checkout with products
+
+### GET /v1/customers/orders
+
 Get all your orders
 
 Request header
@@ -213,7 +252,7 @@ Authorization: Bearer your_jwt_token
 
 ## Testing
 
-Run test suites for admin and customer endponits
+### Run test suites for admin and customer endponits
 
 Admin Tests
 `npm run adminTest`
