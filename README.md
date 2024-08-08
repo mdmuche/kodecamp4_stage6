@@ -163,3 +163,13 @@ Request header
 ```
 Authorization: Bearer your_jwt_token
 ```
+
+## Testing
+
+Run test suites for admin and customer endponits
+
+Admin Tests
+`npm run adminTest`
+
+Customer Test
+`npm run customerTest`
