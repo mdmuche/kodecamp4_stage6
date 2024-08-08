@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "server": "node ./bin/www"
+    "server": "node ./bin/www",
+    "adminTest": "jest ./tests/admin.test",
+    "customerTest": "jest ./tests/customer.test"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -13,10 +15,12 @@
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
     "mongoose-paginate-v2": "^1.8.3",
     "morgan": "~1.9.1",
+    "supertest": "^7.0.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

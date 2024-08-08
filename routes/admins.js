@@ -17,14 +17,14 @@ router.post("/", async (req, res, next) => {
       return;
     }
 
-    await prodCollection.create({
+    const product = await prodCollection.create({
       prodName,
       prodPrice,
       prodSnippet,
       prodDetails,
     });
 
-    res.status(201).send({ message: "product created successfully!" });
+    res.status(201).send({ message: "product created successfully!", product });
   } catch (err) {
     console.error("server error", err.message);
     return res
