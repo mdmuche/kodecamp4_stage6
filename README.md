@@ -222,14 +222,14 @@ Authorization: Bearer your_jwt_here
 {
 "products": [
 {
-"productId": productOrderedOneId,
-"quantity": 5,
-"totalCost": 2500
+"productId": your_first_ordered_product_id,
+"quantity": your_quantity_here,
+"totalCost": your_total_cost_here
 },
 {
-"productId": productOrderedTwoId,
-"quantity": 2,
-"totalCost": 2000
+"productId": your_second_ordered_product_id,
+"quantity": your_quantity_here,
+"totalCost": your_total_cost_here
 }
 ]
 }
