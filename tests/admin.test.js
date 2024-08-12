@@ -26,12 +26,14 @@ describe("Testing admin routes", () => {
       password: "test123",
     });
 
-    expect(response.status).toBe(201);
-    expect(response.body.message).toBe("user created");
-
     await userCollection.findOneAndUpdate(
       { email: "adminjoe@gmail.com" },
-      { role: "admin" }
+      { isEmailVerified: true, role: "admin" }
+    );
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe(
+      "user created, kindly check your email to verify it"
     );
   });
 

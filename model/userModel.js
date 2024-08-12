@@ -11,6 +11,10 @@ const userSchema = new schema(
       unique: true,
       required: true,
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
     password: {
       type: String,
       required: true,
@@ -21,6 +25,9 @@ const userSchema = new schema(
       default: "customer",
     },
     authToken: {
+      type: String,
+    },
+    authPurpose: {
       type: String,
     },
   },

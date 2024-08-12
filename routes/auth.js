@@ -2,6 +2,7 @@ var express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4 } = require("uuid");
+const { sendEmail } = require("../utils/emailUtils");
 
 const userCollection = require("../model/userModel");
 const tokenCollection = require("../model/tokenModel");
@@ -28,14 +29,65 @@ router.post("/register", async function (req, res, next) {
 
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
+    const token = v4();
+
     await userCollection.create({
       fullName,
       email,
       password: hashedPassword,
+      authToken: token,
+      authPurpose: "verify-email",
     });
 
+    await sendEmail(
+      email,
+      "verify email",
+      "Hello " +
+        fullName +
+        " the link to verify your email is http://localhost:3000/v1/auth/verify-email/" +
+        token
+    );
+
     res.status(201).send({
-      message: "user created",
+      message: "user created, kindly check your email to verify it",
+    });
+  } catch (err) {
+    console.error("server error", err.message);
+    res
+      .status(500)
+      .send({ message: "internal server error", error: err.message });
+  }
+});
+
+router.get("/verify-email/:token", async (req, res, next) => {
+  try {
+    const { token } = req.params;
+
+    const doesUserExist = await userCollection.exists({
+      authToken: token,
+      authPurpose: "verify-email",
+    });
+
+    if (!doesUserExist) {
+      return res.status(404).send({
+        message: "the user does not exist",
+      });
+    }
+
+    await userCollection.findOneAndUpdate(
+      {
+        authToken: token,
+        authPurpose: "verify-email",
+      },
+      {
+        isEmailVerified: true,
+        authToken: "",
+        authPurpose: "",
+      }
+    );
+
+    res.send({
+      message: "Email verified successfully!",
     });
   } catch (err) {
     console.error("server error", err.message);

@@ -26,8 +26,15 @@ describe("Testing customer routes", () => {
       password: "test123",
     });
 
+    await userCollection.findOneAndUpdate(
+      { email: "johndoe@gmail.com" },
+      { isEmailVerified: true }
+    );
+
     expect(response.status).toBe(201);
-    expect(response.body.message).toBe("user created");
+    expect(response.body.message).toBe(
+      "user created, kindly check your email to verify it"
+    );
   });
 
   test("Login the customer", async () => {
